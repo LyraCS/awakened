@@ -1,0 +1,364 @@
+<html>
+  <head>
+    <title>HealthApp 📈 - Nutrition Guide</title>
+    <link rel="icon" type="image/artisan" href="./Assets/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .navbar {
+        width: 100%;
+        position: sticky;
+        background-color: #77d5ca;
+        overflow: hidden;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .navbar a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .navbar a:hover::before {
+        transform: scaleX(1);
+      }
+
+      .content {
+        padding: 20px;
+        animation: fadeIn 1.5s;
+      }
+
+      .content h2,
+      .content p {
+        text-align: center;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .food-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .food-item {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .food-item:hover {
+        transform: scale(1.05);
+        box-shadow: #000;
+      }
+
+      .food-item img {
+        max-width: 150px;
+        max-height: 150px;
+        border-radius: 8px;
+      }
+
+      .label-green {
+        color: #2e7d32;
+        font-weight: bold;
+      }
+      .label-yellow {
+        color: #fbc02d;
+        font-weight: bold;
+      }
+      .label-red {
+        color: #c62828;
+        font-weight: bold;
+      }
+
+      .calorie-badge {
+        display: inline-block;
+        background-color: #eee;
+        border-radius: 15px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+      /* Floating Button Styling */
+      .floating-chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #77d5ca;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .floating-chat-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .floating-chat-button i {
+        font-size: 1.5em;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Responsiveness */
+      @media (max-width: 768px) {
+        .navbar a {
+          font-size: 0.9em;
+        }
+
+        .navbar a span {
+          display: none; /* Hide text on mobile */
+        }
+
+        .navbar {
+          justify-content: space-around; /* Icons spaced evenly */
+        }
+        .section h2 {
+          font-size: 2em;
+        }
+
+        .section p {
+          font-size: 1em;
+        }
+
+        .contact-info {
+          font-size: 1em;
+        }
+
+        .contact-form {
+          max-width: 100%;
+          padding: 0 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .navbar a {
+          font-size: 0.9em;
+          padding: 8px 10px;
+        }
+
+        .section h2 {
+          font-size: 1.5em;
+        }
+
+        .section p {
+          font-size: 0.9em;
+        }
+
+        .contact-info {
+          font-size: 0.9em;
+        }
+
+        .contact-form button {
+          padding: 8px 10px;
+          font-size: 0.9em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="index.html"><i class="fas fa-home"></i>Home</a>
+      <a href="nutrition.html"><i class="fas fa-syringe"></i>Nutrilights</a>
+      <a href="psychology.html"><i class="fas fa-brain"></i>Psychology</a>
+      <a href="pharmacy.html"><i class="fas fa-heartbeat"></i>Pharmacy</a>
+    </div>
+
+    <div class="content">
+      <!-- Hijau -->
+      <div class="section" id="green-foods">
+        <h2>🍃 <span class="label-green">Hijau:</span> Aman dan Sehat</h2>
+        <div class="food-grid">
+          <div class="food-item">
+            <img src="bayam.jpeg" alt="Bayam" />
+            <h3>Bayam</h3>
+            <span class="calorie-badge">23 kalori/100g</span>
+            <p>Kaya nutrisi, tinggi zat besi, dan serat</p>
+          </div>
+          <div class="food-item">
+            <img src="brocoli.jpeg" alt="Brokoli" />
+            <h3>Brokoli</h3>
+            <span class="calorie-badge">34 kalori/100g</span>
+            <p>Mengandung vitamin C, serat, dan antioksidan</p>
+          </div>
+          <div class="food-item">
+            <img src="salmon.jpeg" alt="Ikan Salmon" />
+            <h3>Ikan Salmon</h3>
+            <span class="calorie-badge">208 kalori/100g</span>
+            <p>Sumber protein sehat, kaya omega-3</p>
+          </div>
+          <div class="food-item">
+            <img src="apple.jpg" alt="Apel" />
+            <h3>Apel</h3>
+            <span class="calorie-badge">52 kalori/100g</span>
+            <p>Buah segar kaya serat dan vitamin</p>
+          </div>
+        </div>
+        <p>
+          Makanan yang dapat dikonsumsi secara bebas sebagai bagian dari pola
+          makan seimbang.
+        </p>
+      </div>
+
+      <!-- Kuning -->
+      <div class="section" id="yellow-foods">
+        <h2>
+          ⚠️ <span class="label-yellow">Kuning:</span> Konsumsi dengan Moderasi
+        </h2>
+        <div class="food-grid">
+          <div class="food-item">
+            <img src="chips.jpeg" alt="Keripik Kentang" />
+            <h3>Keripik Kentang</h3>
+            <span class="calorie-badge">536 kalori/100g</span>
+            <p>Camilan renyah, konsumsi terbatas</p>
+          </div>
+          <div class="food-item">
+            <img src="/bread.jpeg" alt="Roti Putih" />
+            <h3>Roti Putih</h3>
+            <span class="calorie-badge">266 kalori/100g</span>
+            <p>Karbohidrat olahan, nutrisi terbatas</p>
+          </div>
+          <div class="food-item">
+            <img src="cheese.jpeg" alt="Keju" />
+            <h3>Keju</h3>
+            <span class="calorie-badge">402 kalori/100g</span>
+            <p>Makanan berlemak sedang, konsumsi secukupnya</p>
+          </div>
+          <div class="food-item">
+            <img src="pasta.jpeg" alt="Pasta" />
+            <h3>Pasta</h3>
+            <span class="calorie-badge">158 kalori/100g</span>
+            <p>Karbohidrat olahan, konsumsi bijak</p>
+          </div>
+        </div>
+        <p>
+          Makanan yang sebaiknya dikonsumsi sesekali atau dalam jumlah terbatas.
+        </p>
+      </div>
+
+      <!-- Merah -->
+      <div class="section" id="red-foods">
+        <h2>
+          🚫 <span class="label-red">Merah:</span> Hindari atau Konsumsi Secara
+          Hati-hati
+        </h2>
+        <div class="food-grid">
+          <div class="food-item">
+            <img src="/burger.jpg" alt="Burger" />
+            <h3>Burger</h3>
+            <span class="calorie-badge">295 kalori/100g</span>
+            <p>Makanan cepat saji tinggi kalori</p>
+          </div>
+          <div class="food-item">
+            <img src="soda.jpg" alt="Soda" />
+            <h3>Soda</h3>
+            <span class="calorie-badge">42 kalori/100ml</span>
+            <p>Minuman manis tanpa nutrisi</p>
+          </div>
+          <div class="food-item">
+            <img src="donut.jpeg" alt="Donat" />
+            <h3>Donat</h3>
+            <span class="calorie-badge">452 kalori/100g</span>
+            <p>Snack tinggi lemak dan gula</p>
+          </div>
+          <div class="food-item">
+            <img src="pizza.jpg" alt="Pizza" />
+            <h3>Pizza</h3>
+            <span class="calorie-badge">266 kalori/100g</span>
+            <p>Makanan cepat saji tinggi lemak</p>
+          </div>
+        </div>
+        <p>
+          Makanan yang sebaiknya dihindari atau dikonsumsi dengan sangat
+          hati-hati.
+        </p>
+      </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button
+      class="floating-chat-button"
+      onclick="window.location.href='holocare.html'"
+    >
+      <i class="fas fa-comments"></i>
+    </button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        });
+
+        document.querySelectorAll(".section").forEach((section) => {
+          observer.observe(section);
+        });
+      });
+    </script>
+  </body>
+</html>

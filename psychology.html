@@ -1,0 +1,358 @@
+<html>
+  <head>
+    <title>HealthApp 📈 - Psychology</title>
+    <link rel="icon" type="image/artisan" href="./Assets/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .navbar {
+        width: 100%;
+        position: sticky;
+        background-color: #77d5ca;
+        overflow: hidden;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .navbar a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .navbar a:hover::before {
+        transform: scaleX(1);
+      }
+
+      .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Specific Section Styles */
+      #psychoeducation {
+        background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      }
+
+      #sedentary-lifestyle {
+        background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      }
+
+      #mental-health-issues {
+        background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+      }
+
+      #holocare-chat {
+        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      }
+
+      #dass-21 {
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      }
+
+      #interactive-features {
+        background: linear-gradient(135deg, #fff8e1, #ffecb3);
+      }
+
+      .section h2 {
+        color: #333;
+        border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .section p,
+      .section ul {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .section ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .section ul li {
+        background-color: rgba(255, 255, 255, 0.7);
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .download-link {
+        color: #4e968e;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s, transform 0.3s;
+      }
+
+      .download-link:hover {
+        color: #2e7d32;
+        transform: scale(1.05);
+      }
+
+      /* Floating Chat Button */
+      .floating-chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #77d5ca;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .floating-chat-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .floating-chat-button i {
+        font-size: 1.5em;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Responsiveness */
+      @media (max-width: 768px) {
+        .navbar a {
+          font-size: 0.9em;
+        }
+
+        .navbar a span {
+          display: none; /* Hide text on mobile */
+        }
+
+        .navbar {
+          justify-content: space-around; /* Icons spaced evenly */
+        }
+
+        .section h2 {
+          font-size: 2em;
+        }
+
+        .section p {
+          font-size: 1em;
+        }
+
+        .contact-info {
+          font-size: 1em;
+        }
+
+        .contact-form {
+          max-width: 100%;
+          padding: 0 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .navbar a {
+          font-size: 0.9em;
+          padding: 8px 10px;
+        }
+
+        .section h2 {
+          font-size: 1.5em;
+        }
+
+        .section p {
+          font-size: 0.9em;
+        }
+
+        .contact-info {
+          font-size: 0.9em;
+        }
+
+        .contact-form button {
+          padding: 8px 10px;
+          font-size: 0.9em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="index.html"><i class="fas fa-home"></i>Home</a>
+      <a href="nutrition.html"><i class="fas fa-syringe"></i>Nutrilights</a>
+      <a href="psychology.html"><i class="fas fa-brain"></i>Psychology</a>
+      <a href="pharmacy.html"><i class="fas fa-heartbeat"></i>Pharmacy</a>
+    </div>
+
+    <div class="content">
+      <!-- Psikoedukasi -->
+      <div class="section" id="psychoeducation">
+        <h2>📘 Psikoedukasi</h2>
+        <p>
+          Psikoedukasi adalah proses memberikan informasi kepada individu
+          mengenai kesehatan mental dan kondisi psikologis mereka. Ini dapat
+          membantu mereka memahami dan mengelola kondisi mereka dengan lebih
+          baik.
+        </p>
+      </div>
+
+      <!-- Gaya Hidup Sedenter -->
+      <div class="section" id="sedentary-lifestyle">
+        <h2>🚶‍♂️ Gaya Hidup Sedenter pada Gen Z</h2>
+        <p>
+          Gaya hidup sedenter, atau kurangnya aktivitas fisik, menjadi masalah
+          serius di kalangan Gen Z. Masalah ini dapat berdampak pada:
+        </p>
+        <ul>
+          <li>Obesitas dan gangguan metabolisme</li>
+          <li>Depresi akibat kurangnya interaksi fisik</li>
+          <li>Kecemasan karena minimnya aktivitas sosial</li>
+        </ul>
+      </div>
+
+      <!-- Depresi, Anxiety, dan Stres -->
+      <div class="section" id="mental-health-issues">
+        <h2>💭 Depresi, Anxiety, dan Stres</h2>
+        <p>
+          Masalah-masalah ini umum terjadi dan dapat diatasi dengan pendekatan
+          seperti:
+        </p>
+        <ul>
+          <li>Konsultasi dengan profesional kesehatan mental</li>
+          <li>Meditasi dan latihan mindfulness</li>
+          <li>Dukungan sosial dari keluarga dan teman</li>
+        </ul>
+      </div>
+
+      <!-- HoloCare Chat -->
+      <div class="section" id="holocare-chat">
+        <h2>🧠 Informasi Psikolog pada Fitur HoloCare Chat</h2>
+        <p>
+          Fitur ini memungkinkan Anda berbicara dengan psikolog secara online.
+          Dapatkan dukungan dan saran kapan saja, di mana saja.
+        </p>
+      </div>
+
+      <!-- Kuesioner DASS-21 -->
+      <div class="section" id="dass-21">
+        <h2>📝 Kuesioner DASS-21</h2>
+        <p>
+          Alat ini digunakan untuk mengukur tingkat depresi, kecemasan, dan
+          stres. Akses gratis tersedia di berbagai platform daring.
+        </p>
+        <p>
+          <a
+            href="https://maic.qld.gov.au/wp-content/uploads/2016/07/DASS-21.pdf"
+            class="download-link"
+            >Klik di sini untuk mengakses kuesioner DASS-21</a
+          >
+        </p>
+      </div>
+
+      <!-- Fitur Interaktif -->
+      <div class="section" id="interactive-features">
+        <h2>🎨 Fitur Interaktif Lain</h2>
+        <ul>
+          <li>
+            <a
+              href="https://www.example.com/emotion-journal"
+              class="download-link"
+              >Unduh Emotion Journal Templates</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.example.com/coloring-pages"
+              class="download-link"
+              >Unduh Adult Coloring Pages</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button
+      class="floating-chat-button"
+      onclick="window.location.href='holocare.html'"
+    >
+      <i class="fas fa-comments"></i>
+    </button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        });
+
+        document.querySelectorAll(".section").forEach((section) => {
+          observer.observe(section);
+        });
+      });
+    </script>
+  </body>
+</html>

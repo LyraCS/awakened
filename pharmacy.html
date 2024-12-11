@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HealthApp 📈  - Pharmacy</title>
+    <link
+    rel="icon"
+    type="image/artisan"
+    href="./Assets/icon.png" 
+  />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      .navbar {
+        width: 100%;
+        position: sticky;
+        background-color: #77d5ca;
+        overflow: hidden;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar a {
+        float: left;
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .navbar a::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+      }
+
+      .navbar a:hover::before {
+        transform: scaleX(1);
+      }
+
+      .content {
+        padding: 20px;
+        animation: fadeIn 1.5s;
+      }
+
+      .pharmacy-section {
+        margin-bottom: 40px;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+
+      .pharmacy-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Specific Pharmacy Section Styles */
+      .pharmacy-section#nutritional-supplements {
+        background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      }
+
+      .pharmacy-section#safe-supplement-selection {
+        background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      }
+
+      .pharmacy-section#supplement-recommendations {
+        background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+      }
+
+      .pharmacy-section h2 {
+        color: #333;
+        border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .pharmacy-section p,
+      .pharmacy-section ul {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .pharmacy-section ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .pharmacy-section ul li {
+        background-color: rgba(255, 255, 255, 0.7);
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .pharmacy-section .sub-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+    padding-left: 20px;
+    font-style: italic;
+}
+
+.pharmacy-section .additional-info h3 {
+  text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+}
+
+.pharmacy-section .warning-box h3 {
+
+    text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+}
+
+.pharmacy-section .disclaimer h3 {
+
+    text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+}
+
+.pharmacy-section ul li {
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.pharmacy-section ul li strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #77d5ca;
+    font-size: 1.1em;
+}
+
+      .floating-chat-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #77d5ca;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .floating-chat-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+      }
+
+      .floating-chat-button i {
+        font-size: 1.5em;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      
+/* Responsiveness */
+@media (max-width: 768px) {
+  .navbar a {
+          font-size: 0.9em;
+        }
+
+        .navbar a span {
+          display: none; /* Hide text on mobile */
+        }
+
+        .navbar {
+          justify-content: space-around; /* Icons spaced evenly */
+        }
+
+  .section h2 {
+    font-size: 2em;
+  }
+
+  .section p {
+    font-size: 1em;
+  }
+
+  .contact-info {
+    font-size: 1em;
+  }
+
+  .contact-form {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar a {
+    font-size: 0.9em;
+    padding: 8px 10px;
+  }
+
+  .section h2 {
+    font-size: 1.5em;
+  }
+
+  .section p {
+    font-size: 0.9em;
+  }
+
+  .contact-info {
+    font-size: 0.9em;
+  }
+
+  .contact-form button {
+    padding: 8px 10px;
+    font-size: 0.9em;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="index.html"><i class="fas fa-home"></i>Home</a>
+      <a href="nutrition.html"><i class="fas fa-syringe"></i>Nutrilights</a>
+      <a href="psychology.html"><i class="fas fa-brain"></i>Psychology</a>
+      <a href="pharmacy.html"><i class="fas fa-heartbeat"></i>Pharmacy</a>
+    </div>
+
+    <div class="content">
+      <div class="section pharmacy-section" id="nutritional-supplements">
+        <h2>🌱 Informasi Komprehensif Suplemen Nutrisi</h2>
+        <p>
+            Suplemen nutrisi adalah solusi penting untuk memenuhi kebutuhan gizi harian yang mungkin 
+            terlewatkan dari pola makan modern. Dalam dunia yang serba cepat, keseimbangan nutrisi 
+            menjadi tantangan utama kesehatan.
+        </p>
+        <ul>
+            <li>
+                <strong>Vitamin:</strong> Meningkatkan kekebalan tubuh
+                <p class="sub-description">
+                    - Vitamin C: Antioksidan kuat, mendukung sistem imun<br>
+                    - Vitamin D: Kesehatan tulang dan sistem kekebalan<br>
+                    - Vitamin B-kompleks: Energi dan fungsi metabolisme
+                </p>
+            </li>
+            <li>
+                <strong>Mineral:</strong> Mendukung fungsi organ dan tulang sehat
+                <p class="sub-description">
+                    - Kalsium: Kesehatan tulang dan gigi<br>
+                    - Magnesium: Fungsi otot dan sistem saraf<br>
+                    - Zinc: Penyembuhan luka dan sistem kekebalan
+                </p>
+            </li>
+            <li>
+                <strong>Omega-3:</strong> Menjaga kesehatan jantung dan otak
+                <p class="sub-description">
+                    - Menurunkan peradangan<br>
+                    - Mendukung kesehatan kardiovaskular<br>
+                    - Meningkatkan fungsi kognitif
+                </p>
+            </li>
+        </ul>
+        <div class="additional-info">
+            <h3>Fakta Penting</h3>
+            <p>
+                Tidak semua suplemen cocok untuk semua orang. Konsultasikan dengan 
+                profesional kesehatan untuk rekomendasi personal.
+            </p>
+        </div>
+    </div>
+    
+    <div class="section pharmacy-section" id="safe-supplement-selection">
+        <h2>🛡️ Panduan Komprehensif Memilih Suplemen Aman</h2>
+        <p>
+            Memilih suplemen yang aman dan efektif memerlukan pendekatan yang cermat 
+            dan terinformasi. Berikut adalah panduan menyeluruh untuk memastikan 
+            keamanan dan kualitas suplemen Anda.
+        </p>
+        <ul>
+            <li>
+                <strong>Periksa Label Produk</strong>
+                <p class="sub-description">
+                    - Periksa daftar bahan aktif<br>
+                    - Perhatikan dosis yang direkomendasikan<br>
+                    - Cek tanggal kedaluwarsa
+                </p>
+            </li>
+            <li>
+                <strong>Sertifikasi Resmi</strong>
+                <p class="sub-description">
+                    - Cari sertifikasi dari BPOM<br>
+                    - Perhatikan segel kualitas resmi<br>
+                    - Pastikan produk terdaftar secara legal
+                </p>
+            </li>
+            <li>
+                <strong>Konsultasi Profesional</strong>
+                <p class="sub-description">
+                    - Diskusikan riwayat kesehatan Anda<br>
+                    - Pertimbangkan interaksi dengan obat lain<br>
+                    - Dapatkan rekomendasi personal
+                </p>
+            </li>
+        </ul>
+        <div class="warning-box">
+            <h3>⚠️ Peringatan Penting</h3>
+            <p>
+                Hindari membeli suplemen dari sumber tidak terpercaya. 
+                Kualitas dan keamanan adalah prioritas utama!
+            </p>
+        </div>
+    </div>
+    
+    <div class="section pharmacy-section" id="supplement-recommendations">
+        <h2>✨ Rekomendasi Suplemen Terperinci</h2>
+        <p>
+            Kami telah menyusun daftar suplemen yang paling direkomendasikan 
+            berdasarkan kebutuhan umum dan penelitian terkini.
+        </p>
+        <ul>
+            <li>
+                <strong>Vitamin D:</strong> Tulang sehat dan sistem kekebalan
+                <p class="sub-description">
+                    - Dosis umum: 600-800 IU per hari<br>
+                    - Sangat penting bagi mereka dengan keterbatasan paparan sinar matahari<br>
+                    - Mendukung kesehatan tulang dan sistem imun
+                </p>
+            </li>
+            <li>
+                <strong>Probiotik:</strong> Kesehatan pencernaan
+                <p class="sub-description">
+                    - Mendukung mikrobioma usus<br>
+                    - Meningkatkan sistem kekebalan<br>
+                    - Membantu pencernaan yang sehat
+                </p>
+            </li>
+            <li>
+                <strong>Omega-3:</strong> Kesehatan jantung dan otak
+                <p class="sub-description">
+                    - Sumber EPA dan DHA<br>
+                    - Menurunkan peradangan<br>
+                    - Mendukung kesehatan kardiovaskular
+                </p>
+            </li>
+        </ul>
+        <div class="disclaimer">
+            <h3>📝 Disclaimer</h3>
+            <p>
+                Rekomendasi ini bersifat umum. Konsultasikan dengan dokter 
+                untuk rekomendasi yang disesuaikan dengan kondisi kesehatan Anda.
+            </p>
+        </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button
+      class="floating-chat-button"
+      onclick="window.location.href='holocare.html'"
+    >
+      <i class="fas fa-comments"></i>
+    </button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        });
+
+        document.querySelectorAll(".section").forEach((section) => {
+          observer.observe(section);
+        });
+      });
+    </script>
+  </body>
+</html>
